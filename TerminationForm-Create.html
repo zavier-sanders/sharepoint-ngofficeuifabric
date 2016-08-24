@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Employee Termination</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style type="text/css">
+    .section-divider
+    {
+      padding: 10px ;
+      color: white;
+      background-color: #004578 ;
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+<body>
+
+  <div ng-controller="mainController" class="ms-Grid">
+    <h1>Employee Termination Form</h1>
+    <br>
+    <div>   
+      <div>
+        <!-- Message bar component -->
+        <uif-message-bar>
+          <uif-content>
+            <h4>Instructions:</h4>
+            <p>Employee must return all equipment.
+            <br>
+            Please fill out all applicable fields on the form.</p>
+          </uif-content>
+        </uif-message-bar>
+      </div> 
+    </div>
+    <br>
+ 
+    <!-- HR Section -->
+    <div class="ms-Grid-row ms-Grid">
+      <h3 class="section-divider"><uif-icon uif-type="circleInfo"></uif-icon> Human Resource</h3>
+      <div class="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+
+        <!-- Textbox component -->
+        <uif-textfield uif-label="Employee Name" ng-model="terminationRequest.Title"></uif-textfield> 
+
+        <!-- Dropdown component -->
+        <uif-label>Department:</uif-label>
+        <uif-dropdown ng-model="user.department">
+            <uif-dropdown-option value="{{key}}" ng-repeat="(key, value) in Departments" title="{{value}}">{{value}}</uif-dropdown-option>
+        </uif-dropdown>
+
+        <!-- Date picker component-->
+        <uif-label>Last Day of Work:</uif-label>
+        <uif-datepicker ng-model="terminationRequest.LastDayOfWork"></uif-datepicker>
+
+        <!-- Textbox component -->
+        <uif-textfield uif-label="Reason for Termination" ng-model="terminationRequest.ReasonForTermination"></uif-textfield> 
+
+        <!-- Date picker component-->
+        <uif-label>Next Job Start Date:</uif-label>
+        <uif-datepicker ng-model="terminationRequest.NextJobStartDate"></uif-datepicker>
+
+        <!-- Peoplepicker component -->
+        <uif-label>Exit Interview Completed By:</uif-label>
+        <uif-people-picker uif-people="getExitInterviewer" ng-model="terminationRequest.ExitInterviewer" uif-type="compact" uif-selected-person-click="personClicked" data-ng-click="getSelectedUserId(terminationRequest)" uif-search-delay="300" placeholder="Search for people">
+          <uif-people-search-more>
+            <uif-secondary-text>Showing {{asyncExitInterviewerResults.length}} results</uif-secondary-text>
+            <uif-primary-text uif-search-for-text="You are searching for: ">Search organization people</uif-primary-text>
+          </uif-people-search-more>
+        </uif-people-picker>
+      </div>
+      <div class="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+
+        <!-- Textbox component -->
+        <uif-textfield uif-label="Remaining PTO Hours" ng-model="terminationRequest.PTO"></uif-textfield> 
+        
+        <!-- Textbox component -->
+        <uif-textfield uif-label="Next Place of Employeement" ng-model="terminationRequest.NewPlaceEmployment"></uif-textfield> 
+        
+        <!-- Choice field component -->
+        <uif-choicefield-group ng-model="terminationRequest.WasTwoWeekNoticeGiven">
+            <uif-choicefield-group-title><label class="ms-Label is-required">Was Two Week Notice Given:</label></uif-choicefield-group-title>
+            <uif-choicefield-option uif-type="radio" value="true">Yes</uif-choicefield-option>
+            <uif-choicefield-option uif-type="radio" value="false">No</uif-choicefield-option>
+        </uif-choicefield-group>
+
+        <!-- Date picker component -->
+        <uif-label>Date of Notice:</uif-label>
+        <uif-datepicker ng-model="terminationRequest.DateOfNotice"></uif-datepicker>
+
+        <!-- Text area component -->
+        <uif-textfield ng-model="terminationRequest.HRComments" uif-label="Comments:" uif-multiline="true"></uif-textfield> 
+
+        <div>
+          <!-- Primary button components-->
+          <uif-button type="button" data-ng-click="submitRequest(terminationRequest)" uif-type="primary">Submit</uif-button>
+          <uif-button type="button" data-ng-click="cancel()" uif-type="command">Cancel</uif-button>
+        </div>  
+      </div>
+    </div>  
+  </div>
+	
+  <!-- jQuery -->
+  <script src="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/scripts/jquery-3.1.0.min.js"></script>
+
+  <!-- PickerJS -->
+  <script src="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/scripts/picker.js"></script>
+  <script src="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/scripts/picker.date.js"></script>
+
+  <!-- Office UI Fabric stylesheets (there are minified options too) -->
+  <link rel="stylesheet" href="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/scripts/fabric.min.css">
+  <link rel="stylesheet" href="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/scripts/fabric.components.min.css">
+
+  <!-- Angular & ngOfficeUiFabric -->
+  <script src="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/scripts/angular.min.js"></script>
+  <script src="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/scripts/ngOfficeUiFabric.min.js"></script>
+
+	<!-- Application files -->
+  <script src="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/controllers.js"></script>
+	<script src="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/services.js"></script>
+	<script src="/sites/Collaboration-Demo/SiteAssets/EmployeeTermination/app.js"></script>
+
+</body>
+</html>
